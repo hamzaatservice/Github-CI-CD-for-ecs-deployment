@@ -1,8 +1,8 @@
-AWS ECR Deployment Pipeline
+#AWS ECR Deployment Pipeline
 
 This repository contains a GitHub Actions workflow to automate the process of building, tagging, and pushing Docker images to an Amazon Elastic Container Registry (ECR). The workflow also updates the ECS service with the new image, ensuring a streamlined CI/CD pipeline.
 
-Prerequisites
+#Prerequisites
 
 AWS Setup:
 
@@ -12,8 +12,9 @@ A pre-existing ECR repository.
 
 ECS cluster and task definitions configured.
 
-GitHub Secrets:
-Ensure the following secrets are added to your GitHub repository:
+#GitHub Secrets:
+
+**Ensure the following secrets are added to your GitHub repository:**
 
 AWS_ACCESS_KEY_ID: Your AWS access key ID.
 
@@ -35,36 +36,35 @@ GITHUB_TOKEN: Personal access token for accessing private GitHub repositories (i
 
 GITHUB_USERNAME: GitHub username for the repository.
 
-Workflow Overview
+#Workflow Overview
 
 The pipeline is triggered on every push to the main branch and performs the following steps:
 
 Checkout Code:
+
 Pulls the latest code from the repository.
 
-Configure AWS Credentials:
+**Configure AWS Credentials:**
 Authenticates to AWS using the provided secrets.
 
-Login to ECR:
+**Login to ECR:**
 Logs into the specified Amazon ECR repository.
 
-Build and Push Docker Image:
-
+**Build and Push Docker Image:**
 Generates a unique image tag based on the commit hash and timestamp.
 
-Builds the Docker image and pushes it to ECR.
+**Builds the Docker image and pushes it to ECR.**
 
-Update ECS Task Definition:
-
+**Update ECS Task Definition:**
 Retrieves the current task definition.
 
-Updates the container image with the newly pushed Docker image.
+**Updates the container image with the newly pushed Docker image.**
 
-Registers the updated task definition with ECS.
+**Registers the updated task definition with ECS.**
 
-Update ECS Service:
+**Update ECS Service:**
 
-Deploys the updated task definition to the specified ECS service.
+**Deploys the updated task definition to the specified ECS service.**
 
 Folder Structure
 
@@ -83,7 +83,7 @@ Modify the workflow file (deploy.yml) if necessary to match your environment.
 
 Commit and push your changes to the main branch. The workflow will automatically execute.
 
-Key Environment Variables
+#Key Environment Variables
 
 AWS_REGION: Specifies the AWS region.
 
@@ -95,33 +95,33 @@ ECS_SERVICE: ECS service to update with the new task definition.
 
 ECS_CLUSTER: ECS cluster where the service is running.
 
-Notes
+#Notes
 
 The Dockerfile must exist in the root of your repository and be correctly configured to build your application.
 
 The pipeline relies on the AWS CLI and jq for JSON parsing and ECS updates.
 
-Troubleshooting
+#Troubleshooting
 
-Pipeline Fails at AWS Steps:
+#Pipeline Fails at AWS Steps:
 
 Ensure AWS credentials and permissions are correctly configured in GitHub Secrets.
 
 Check the task definition, service, and cluster names for typos.
 
-Image Not Updating in ECS:
+#Image Not Updating in ECS:
 
 Verify that the CONTAINER_NAME matches the container name in the ECS task definition.
 
 Ensure the updated task definition is successfully registered and deployed.
 
-Docker Build Errors:
+#Docker Build Errors:
 
 Check the Dockerfile for issues.
 
 Ensure all required build arguments are correctly passed.
 
-Resources
+#Resources
 
 [GitHub Actions Documentation]
 (https://docs.github.com/en/actions)
